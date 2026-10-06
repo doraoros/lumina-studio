@@ -1,0 +1,58 @@
+{
+  "summary": {
+    "photo_count": 150,
+    "rejected": 86,
+    "duplicates": 19,
+    "unique_kept": 45,
+    "album_count": 29,
+    "people_count": 13,
+    "reasons": {
+      "Duplicat": 19,
+      "Neclar": 65,
+      "Expunere slabă": 21
+    },
+    "sections": {
+      "Cuplu": 9,
+      "Portrete": 20,
+      "Invitați": 0,
+      "Detalii": 0
+    }
+  },
+  "validation": {
+    "good_kept": 0.82,
+    "duplicates_caught": 0.7,
+    "rejects_caught": 1.0
+  },
+  "roles": {
+    "good": {
+      "album": 26,
+      "kept": 15,
+      "duplicate": 5,
+      "rejected": 4
+    },
+    "dup": {
+      "duplicate": 14,
+      "kept": 1,
+      "album": 3,
+      "rejected": 2
+    },
+    "bad": {
+      "rejected": 80
+    }
+  },
+  "people_sizes": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    4,
+    4,
+    4,
+    3,
+    2
+  ]
+}
