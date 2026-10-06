@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumina — automatic selection for photo studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=Outfit:wght@300;420;560&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body class="role-couple">
+  <header class="nav">
+    <a class="brand" href="/">Lumina</a>
+    <div class="role" role="group" aria-label="View">
+      <button type="button" data-role="studio">Studio</button>
+      <button type="button" data-role="couple" class="on">Couple</button>
+    </div>
+    <p class="nav-meta">Your wedding album</p>
+  </header>
+
+  <main>
+    <section class="hero studio-only">
+      <p class="eyebrow">Computer vision · database · measurable impact</p>
+      <h1>From 3,000 frames, the album that matters.</h1>
+      <p class="lede">
+        Upload a wedding. Lumina scores sharpness and exposure, drops burst duplicates,
+        groups people, and proposes the final album — then shows how many hours
+        and how much money the studio gets back.
+      </p>
+      <div class="actions">
+        <button id="run" type="button">Run the demo wedding · 3,000 frames</button>
+        <label class="ghost">
+          Upload a folder
+          <input id="folder" type="file" webkitdirectory directory multiple hidden />
+        </label>
+      </div>
+      <p id="note" class="quiet"></p>
+    </section>
+
+    <section class="hero couple-only">
+      <p class="eyebrow">Your wedding</p>
+      <h1>The photographs we kept for you.</h1>
+      <p class="lede">
+        Turn the pages, find yourselves, and heart the frames you want in the book.
+        The studio sees your favorites. Nothing else.
+      </p>
+      <p id="couple-note" class="quiet"></p>
+    </section>
+
+    <section class="pillars studio-only" aria-label="What the system does">
+      <article>
+        <span>01</span>
+        <h2>Database</h2>
+        <p>Every frame, face, and person stays in a SQLite register for the event.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h2>Image processing</h2>
+        <p>Sharpness, exposure, and a visual fingerprint, computed from pixels, not filenames.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h2>People</h2>
+        <p>YuNet finds faces, SFace turns them into embeddings, and similarity groups them.</p>
+      </article>
+      <article>
+        <span>04</span>
+        <h2>Impact</h2>
+        <p>Runtime is measured and turned into post-production hours and money.</p>
+      </article>
+    </section>
+
+    <section id="progress" class="progress" hidden>
+      <div class="progress-head">
+        <p id="phase">Preparing</p>
+        <strong id="percent">0%</strong>
+      </div>
+      <div class="track"><div id="bar"></div></div>
+      <p id="detail" class="quiet"></p>
+      <ol id="phases" class="phases"></ol>
+    </section>
+
+    <div id="results"></div>
+
+    <section class="method studio-only">
+      <div class="method-copy">
+        <p class="eyebrow">How it decides</p>
+        <h2>A pipeline, not a simulated score.</h2>
+        <p>
+          The 3,000-frame demo starts from real wedding photographs.
+          Each photo becomes a few compositions, near-identical bursts,
+          and failed frames — motion blur or bad exposure — so there is a real volume to cull.
+          Labels exist only to measure how often the pipeline is right.
+        </p>
+      </div>
+      <ol class="steps">
+        <li><strong>Sharpness.</strong> Laplacian variance. Blurred frames drop out.</li>
+        <li><strong>Exposure.</strong> Mean luminance and clipped highlights or shadows.</li>
+        <li><strong>Duplicates.</strong> 64-bit dHash. A small Hamming distance means a burst.</li>
+        <li><strong>Faces.</strong> YuNet detector, SFace embeddings, cosine grouping.</li>
+        <li><strong>Album.</strong> The best frames, at most two per scene, across four sections.</li>
+        <li><strong>Economics.</strong> Manual hours minus measured runtime and the photographer’s review.</li>
+      </ol>
+    </section>
+  </main>
+
+  <div id="stage" class="stage" hidden>
+    <button id="stage-close" type="button">Close</button>
+    <img id="stage-img" alt="" />
+    <p id="stage-cap"></p>
+    <div id="stage-meters" class="meters" hidden></div>
+    <button id="stage-star" type="button">Add to shortlist</button>
+  </div>
+
+  <div id="gate" class="gate" hidden>
+    <form id="gate-form">
+      <p class="eyebrow">Studio</p>
+      <h2>The couple stays with the album.</h2>
+      <p>The desk opens with the studio code.</p>
+      <input id="gate-code" type="password" autocomplete="off" placeholder="Code" required />
+      <div class="actions">
+        <button type="submit">Enter</button>
+        <button id="gate-cancel" class="ghost" type="button">Back to the album</button>
+      </div>
+      <p id="gate-error" class="quiet" hidden>That code does not open the studio.</p>
+    </form>
+  </div>
+
+  <div id="book" class="book" hidden>
+    <button id="book-close" type="button">Close</button>
+    <button id="book-prev" type="button" aria-label="Previous spread">Prev</button>
+    <div class="spread">
+      <figure><img id="page-left" alt="" /><figcaption id="page-left-cap"></figcaption></figure>
+      <figure><img id="page-right" alt="" /><figcaption id="page-right-cap"></figcaption></figure>
+    </div>
+    <button id="book-next" type="button" aria-label="Next spread">Next</button>
+    <p id="book-cap"></p>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
